@@ -2,22 +2,18 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-
-auth_default: &auth_default
-  <<: *default
-  username: postgres
+  username: <%= ENV["DB_USERNAME"] %>
   password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
 
 development:
-  <<: *auth_default
+  <<: *default
   database: zssn_maxihost_api_development
 
 test:
-  <<: *auth_default
+  <<: *default
   database: zssn_maxihost_api_test
 
 production:
   <<: *default
   database: zssn_maxihost_api_production
-  username: zssn_maxihost_api
-  password: <%= ENV["ZSSN_MAXIHOST_API_DATABASE_PASSWORD"] %>
