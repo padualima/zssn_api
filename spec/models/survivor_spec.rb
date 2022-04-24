@@ -37,4 +37,22 @@ RSpec.describe Survivor, type: :model do
       end
     end
   end
+
+  describe "#aasm" do
+    it 'should survivor starts as a refugee' do
+      expect(subject.status).to eql('refugee')
+    end
+
+    # TODO: adjust when add table records
+    it 'should when the survivor is infected to change status' do
+      subject.infect
+      expect(subject.status).to eql('infected')
+    end
+
+    # TODO: adjust when add table records
+    it 'should when the survivor is recovered it will change its status' do
+      subject.redeem
+      expect(subject.status).to eql('recovered')
+    end
+  end
 end
