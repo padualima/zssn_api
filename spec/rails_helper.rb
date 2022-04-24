@@ -4,6 +4,7 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 require 'rspec/rails'
 
 begin
