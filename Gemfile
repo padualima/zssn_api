@@ -11,6 +11,7 @@ gem "bootsnap", require: false
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'aasm', '~> 5.1'
+gem 'geocoder', '~> 1.3'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

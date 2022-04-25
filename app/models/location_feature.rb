@@ -1,4 +1,9 @@
 class LocationFeature < ApplicationRecord
+  attr_accessor :address
+
+  reverse_geocoded_by :latitude, :longitude
+  after_validation :reverse_geocode, if: -> { latitude_changed? || longitude_changed? }
+
   # relationships
   belongs_to :survivor
   belongs_to :nearest_survivor, class_name: 'Survivor', foreign_key: :survivor_id, optional: true
