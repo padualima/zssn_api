@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_25_015456) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_25_173844) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -23,6 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_015456) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["nearest_survivor_id"], name: "index_location_features_on_nearest_survivor_id"
+    t.index ["survivor_id", "latitude", "longitude"], name: "index_location_features_on_survivor_id_and_location"
     t.index ["survivor_id"], name: "index_location_features_on_survivor_id"
   end
 
