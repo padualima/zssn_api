@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_24_214032) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_25_015456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "location_features", force: :cascade do |t|
     t.bigint "survivor_id", null: false
-    t.bigint "nearest_survivor_id_id"
+    t.bigint "nearest_survivor_id"
     t.float "latitude", null: false
     t.float "longitude", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["nearest_survivor_id_id"], name: "index_location_features_on_nearest_survivor_id_id"
+    t.index ["nearest_survivor_id"], name: "index_location_features_on_nearest_survivor_id"
     t.index ["survivor_id"], name: "index_location_features_on_survivor_id"
   end
 
