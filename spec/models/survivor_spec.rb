@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Survivor, type: :model do
+  context 'relationships' do
+    it { should accept_nested_attributes_for(:location_feature) }
+  end
+
+  context 'validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:gender) }
+    it { should validate_presence_of(:status) }
+    it { should define_enum_for(:gender).with_values(Survivor.genders.keys) }
+    it { should define_enum_for(:status).with_values(Survivor.statuses.keys) }
+  end
+
   describe "#create" do
     subject(:survivor) { build(:survivor) }
 
