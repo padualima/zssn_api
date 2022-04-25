@@ -1,28 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe LocationFeature, type: :model do
-  context 'relationships' do
+  context '#relationships' do
     it { is_expected.to belong_to(:survivor) }
     it { is_expected.to belong_to(:nearest_survivor).class_name('Survivor').optional }
   end
 
-  context 'validations' do
+  context '#validations' do
+    subject { build(:location_feature) }
+
     it { should validate_presence_of(:latitude) }
     it { should validate_presence_of(:longitude) }
     it { should validate_numericality_of(:latitude) }
     it { should validate_numericality_of(:longitude) }
     it 'should exists the nearest_survivor_id' do
-      location = build(:location_feature)
+      subject.nearest_survivor_id = Survivor.count.next
 
-      location.nearest_survivor_id = Survivor.count.next
-
-      expect(location).to be_invalid
-      expect(location.errors[:nearest_survivor_id]).to include('was not found')
+      expect(subject).to be_invalid
+      expect(subject.errors[:nearest_survivor_id]).to include('was not found')
     end
   end
 
-  describe "#create" do
-    subject(:location_feature) { build(:location_feature) }
+  context "#methods" do
+    subject { build(:location_feature) }
+
+    before do
+      subject.save
+    end
+
+    it '.location' do
+      expect(subject.location).to be_a(Array)
+      expect(subject.location.count).to be(2)
+    end
+  end
+
+  context "#create" do
+    subject { build(:location_feature) }
 
     context 'should save location_feature' do
       it 'when required attributes is present' do

@@ -3,6 +3,8 @@ class Survivor < ApplicationRecord
   has_one :location_feature, dependent: :destroy
   accepts_nested_attributes_for :location_feature # not accessible to work with JSON::API
 
+  delegate :location, to: :location_feature
+
   # enumerate
   enum gender: %i[masculine feminine neutral]
   enum status: %i[refugee infected recovered]

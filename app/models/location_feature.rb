@@ -16,4 +16,8 @@ class LocationFeature < ApplicationRecord
       errors.add(:nearest_survivor_id, 'was not found')
     end
   end
+
+  def location
+    values_at(:latitude, :longitude)
+  end
 end

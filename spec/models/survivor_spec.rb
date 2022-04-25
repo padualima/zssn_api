@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Survivor, type: :model do
-  context 'relationships' do
+  context '#relationships' do
     it { should accept_nested_attributes_for(:location_feature) }
   end
 
-  context 'validations' do
+  context '#validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:gender) }
     it { should validate_presence_of(:status) }
@@ -13,44 +13,46 @@ RSpec.describe Survivor, type: :model do
     it { should define_enum_for(:status).with_values(Survivor.statuses.keys) }
   end
 
-  describe "#create" do
-    subject(:survivor) { build(:survivor) }
+  context "#create" do
+    subject { build(:survivor, :with_location) }
 
     context 'should save survivor' do
       it 'when required attributes is present' do
-        expect { survivor.save }.to change(Survivor, :count)
-        expect(survivor.persisted?).to be true
+        expect { subject.save }.to change(Survivor, :count)
+        expect(subject.persisted?).to be true
+        expect(subject.location_feature.persisted?).to be true
+        expect(subject.location.count).to be 2
         expect(described_class.name).to be_a String
-        expect(described_class.genders).to include(survivor.gender)
-        expect(described_class.statuses).to include(survivor.status)
+        expect(described_class.genders).to include(subject.gender)
+        expect(described_class.statuses).to include(subject.status)
       end
     end
 
     context 'should not save survivor' do
       it 'when the name is not present' do
-        survivor.name = ''
+        subject.name = ''
 
-        expect { survivor.save }.to_not change(Survivor, :count)
-        expect(survivor.save).to be false
+        expect { subject.save }.to_not change(Survivor, :count)
+        expect(subject.save).to be false
       end
 
       it 'when the gender is not present' do
-        survivor.gender = nil
+        subject.gender = nil
 
-        expect { survivor.save }.to_not change(Survivor, :count)
-        expect(survivor.save).to be false
+        expect { subject.save }.to_not change(Survivor, :count)
+        expect(subject.save).to be false
       end
 
       it 'when the status is not present' do
-        survivor.gender = nil
+        subject.gender = nil
 
-        expect { survivor.save }.to_not change(Survivor, :count)
-        expect(survivor.save).to be false
+        expect { subject.save }.to_not change(Survivor, :count)
+        expect(subject.save).to be false
       end
     end
   end
 
-  describe "#aasm" do
+  context "#aasm" do
     it 'should survivor starts as a refugee' do
       expect(subject.status).to eql('refugee')
     end
