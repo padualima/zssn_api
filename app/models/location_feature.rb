@@ -2,18 +2,32 @@ class LocationFeature < ApplicationRecord
   attr_accessor :address
 
   reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode, if: -> { latitude_changed? || longitude_changed? }
 
   # relationships
   belongs_to :survivor
   belongs_to :nearest_survivor, class_name: 'Survivor', foreign_key: :survivor_id, optional: true
 
+  #callbacks
+  after_validation :reverse_geocode,
+                   if: -> { latitude_changed? || longitude_changed? }
+  after_validation :check_which_nearest_survivor,
+                   if: -> { latitude_changed? || longitude_changed? }
+
+  def check_which_nearest_survivor
+    Automation::NearestSurvivorUpdater.call(id)
+  end
+
   # validations
   validates :latitude, :longitude, presence: true
-  validates :latitude , numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
-  validates :longitude, numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
+  validates :latitude,
+            numericality: { greater_than_or_equal_to:  -90, less_than_or_equal_to:  90 }
+  validates :longitude,
+            numericality: { greater_than_or_equal_to: -180, less_than_or_equal_to: 180 }
   validate :nearest_survivor_exists?
   # TODO: create helper check in controller for param attribute type
+
+  # scopes
+  scope :by_nearby, -> (l) { near(l.location, 2, units: :km).where.not(id: l.id) }
 
   # custom validations
   def nearest_survivor_exists?
