@@ -1,6 +1,6 @@
 class ErrorSerializer
   def initialize(resource)
-    @messages = resource.errors.full_messages.first
+    @messages = resource.errors.full_messages
     @field = resource.model_name.collection
   end
 

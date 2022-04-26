@@ -1,7 +1,7 @@
 class Survivor < ApplicationRecord
   # relationships
   has_one :location_feature, dependent: :destroy
-  accepts_nested_attributes_for :location_feature # not accessible to work with JSON::API
+  accepts_nested_attributes_for :location_feature, update_only: true
 
   delegate :location, to: :location_feature
 
@@ -13,6 +13,11 @@ class Survivor < ApplicationRecord
   validates :name, :gender, :status, presence: true
   validates :gender, inclusion: { in: genders.keys }
   validates :status, inclusion: { in: statuses.keys }
+  validate  :is_location_present?
+
+  def is_location_present?
+    errors.add(:location, "can't be blank") unless location_feature.present?
+  end
 
   # The State Machine
   include AASM
