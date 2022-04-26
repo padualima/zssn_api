@@ -144,4 +144,44 @@ RSpec.describe 'V1::Survivors', type: :request do
       expect(response).to have_http_status(:not_found)
     end
   end
+
+  describe 'GET /nearest' do
+    let(:location) { build(:location_feature, :with_survivor_nearby) }
+    let(:nearest_location) { LocationFeature.by_nearby(location).first }
+    let(:survivor) { location.survivor }
+
+    before do
+      location.save
+    end
+
+    it 'should return ok if exists nearest survivor ' do
+      location.reload
+
+      expect do
+        get nearest_survivor_path(survivor), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['nearest_survivor']['name'])
+        .to eql(nearest_location.survivor.name)
+    end
+
+    it 'should not update when not exists nearest survivor' do
+      nearest_location.destroy
+
+      expect do
+        get nearest_survivor_path(survivor), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'should retun not_found if survivor not exists' do
+      expect do
+        get nearest_survivor_path(Survivor.last.id.next), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(:not_found)
+    end
+  end
 end
