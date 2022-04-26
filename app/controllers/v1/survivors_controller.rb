@@ -1,5 +1,5 @@
 class V1::SurvivorsController < V1::ApiController
-  before_action :set_survivor, only: %i[show]
+  before_action :set_survivor, only: %i[show update]
 
   def show
     render json: @survivor, status: :ok
@@ -12,6 +12,14 @@ class V1::SurvivorsController < V1::ApiController
       render json: survivor, status: :ok
     else
       render_save_error!(survivor, :unprocessable_entity)
+    end
+  end
+
+  def update
+    if @survivor.update(survivor_params)
+      render json: @survivor
+    else
+      render_save_error!(@survivor, :unprocessable_entity)
     end
   end
 

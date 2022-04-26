@@ -11,7 +11,7 @@ RSpec.describe 'V1::Survivors', type: :request do
         post survivors_path, headers: api_headers, params: payload
       end.to change(Survivor, :count)
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
 
     it 'should not create survivor when name not is present' do
@@ -19,7 +19,7 @@ RSpec.describe 'V1::Survivors', type: :request do
 
       post survivors_path, headers: api_headers, params: payload
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_entity)
       expect(response.parsed_body['errors']['message'][0])
         .to eql("Name can't be blank")
     end
@@ -29,7 +29,7 @@ RSpec.describe 'V1::Survivors', type: :request do
 
       post survivors_path, headers: api_headers, params: payload
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_entity)
       expect(response.parsed_body['errors']['message'][0])
         .to eql("Gender can't be blank")
       expect(response.parsed_body['errors']['message'][1])
@@ -41,7 +41,7 @@ RSpec.describe 'V1::Survivors', type: :request do
 
       post survivors_path, headers: api_headers, params: payload
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_entity)
       expect(response.parsed_body['errors']['message'][0])
         .to eql("Location can't be blank")
     end
@@ -51,7 +51,7 @@ RSpec.describe 'V1::Survivors', type: :request do
 
       post survivors_path, headers: api_headers, params: payload
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_entity)
       expect(response.parsed_body['errors']['message'][0])
         .to eql("Location feature latitude can't be blank")
       expect(response.parsed_body['errors']['message'][1])
@@ -63,7 +63,7 @@ RSpec.describe 'V1::Survivors', type: :request do
 
       post survivors_path, headers: api_headers, params: payload
 
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(:unprocessable_entity)
       expect(response.parsed_body['errors']['message'][0])
         .to eql("Location feature longitude can't be blank")
       expect(response.parsed_body['errors']['message'][1])
@@ -81,7 +81,7 @@ RSpec.describe 'V1::Survivors', type: :request do
         get survivor_path(survivor), headers: api_headers
       end.to_not change(Survivor, :count)
 
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
       expect(response.parsed_body['id']).to eql(survivor.id)
       expect(response.parsed_body['name']).to eql(survivor.name)
     end
@@ -91,7 +91,57 @@ RSpec.describe 'V1::Survivors', type: :request do
         get survivor_path(Survivor.last.id.next), headers: api_headers
       end.to_not change(Survivor, :count)
 
-      expect(response).to have_http_status(404)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+  describe 'PATCH/PUT /update' do
+    let(:payload) { api_payload(survivor, [survivor.location_feature]) }
+    let(:new_name) { Faker::Name.name }
+    let(:new_lat) { Faker::Address.latitude }
+
+    before do
+      survivor.save
+    end
+
+    it 'should update when survivor is valid' do
+      payload['data']['attributes']['name'] = new_name
+      payload['data']['attributes']['location_feature_attributes']['latitude'] = new_lat
+
+      expect do
+        patch survivor_path(survivor), headers: api_headers, params: payload
+      end.to_not change(Survivor, :count)
+
+      survivor.reload
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['id']).to eql(survivor.id)
+      expect(response.parsed_body['name']).to eql(survivor.name)
+    end
+
+    it 'should not update when survivor not valid' do
+      payload['data']['attributes']['name'] = ''
+      payload['data']['attributes']['location_feature_attributes']['latitude'] = nil
+
+      expect do
+        patch survivor_path(survivor), headers: api_headers, params: payload
+      end.to_not change(Survivor, :count)
+
+      survivor.reload
+
+      expect(response.parsed_body['errors']['message'][2])
+        .to eql("Name can't be blank")
+      expect(response.parsed_body['errors']['message'][0])
+        .to eql("Location feature latitude can't be blank")
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+
+    it 'should not update when survivor was not_found' do
+      expect do
+        patch survivor_path(Survivor.last.id.next), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
