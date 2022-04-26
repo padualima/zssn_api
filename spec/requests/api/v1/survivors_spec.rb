@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'V1::Survivors', type: :request do
   let(:survivor) { build(:survivor, :with_location) }
-  let(:payload) { api_payload(survivor, [survivor.location_feature]) }
 
   describe 'POST /create' do
+    let(:payload) { api_payload(survivor, [survivor.location_feature]) }
+
     it 'should create survivor' do
       post survivors_path, headers: api_headers, params: payload
 
@@ -66,5 +67,14 @@ RSpec.describe 'V1::Survivors', type: :request do
       expect(response.parsed_body['errors']['message'][1])
         .to eql("Location feature longitude is not a number")
     end
+  end
+
+  describe 'GET /show' do
+    before do
+      survivor.save
+    end
+
+    it 'should return ok if survivor exists'
+    it 'should retun not_found if survivor not exists'
   end
 end
