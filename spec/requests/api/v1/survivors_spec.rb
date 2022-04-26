@@ -7,7 +7,9 @@ RSpec.describe 'V1::Survivors', type: :request do
     let(:payload) { api_payload(survivor, [survivor.location_feature]) }
 
     it 'should create survivor' do
-      post survivors_path, headers: api_headers, params: payload
+      expect do
+        post survivors_path, headers: api_headers, params: payload
+      end.to change(Survivor, :count)
 
       expect(response).to have_http_status(200)
     end
@@ -74,7 +76,22 @@ RSpec.describe 'V1::Survivors', type: :request do
       survivor.save
     end
 
-    it 'should return ok if survivor exists'
-    it 'should retun not_found if survivor not exists'
+    it 'should return ok if survivor exists' do
+      expect do
+        get survivor_path(survivor), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(200)
+      expect(response.parsed_body['id']).to eql(survivor.id)
+      expect(response.parsed_body['name']).to eql(survivor.name)
+    end
+
+    it 'should retun not_found if survivor not exists' do
+      expect do
+        get survivor_path(Survivor.last.id.next), headers: api_headers
+      end.to_not change(Survivor, :count)
+
+      expect(response).to have_http_status(404)
+    end
   end
 end

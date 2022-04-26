@@ -1,7 +1,7 @@
 class ErrorSerializer
-  def initialize(resource)
-    @messages = resource.errors.full_messages
-    @field = resource.model_name.collection
+  def initialize(exception = nil, resource)
+    @messages = exception.nil? ? resource.errors.full_messages : [exception.message]
+    @field = exception.nil? ? resource.model_name.collection : exception.model.underscore
   end
 
   def to_json(*)
