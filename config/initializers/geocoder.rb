@@ -13,12 +13,12 @@ Geocoder.configure(
 
   # set default units to kilometers:
   units: :km,
-  # TODO: set redis
+
   # caching (see Caching section below for details):
   # warning: `cache_prefix` is deprecated, use `cache_options` instead
-  # cache: Redis.new,
-  # cache_options: {
-  #   expiration: 1.day, # Defaults to `nil`
-  #   prefix: "another_key:" # Defaults to `geocoder:`
-  # }
+  cache: Redis.new,
+  cache_options: {
+    expiration: 1.day, # Defaults to `nil`
+    prefix: "another_key:" # Defaults to `geocoder:`
+  }
 )
