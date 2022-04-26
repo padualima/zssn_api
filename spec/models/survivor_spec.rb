@@ -13,7 +13,7 @@ RSpec.describe Survivor, type: :model do
     it { should define_enum_for(:status).with_values(Survivor.statuses.keys) }
   end
 
-  context "#create" do
+  context '#create' do
     subject { build(:survivor, :with_location) }
 
     context 'should save survivor' do
@@ -52,7 +52,7 @@ RSpec.describe Survivor, type: :model do
     end
   end
 
-  context "#aasm" do
+  context '#aasm' do
     it 'should survivor starts as a refugee' do
       expect(subject.status).to eql('refugee')
     end

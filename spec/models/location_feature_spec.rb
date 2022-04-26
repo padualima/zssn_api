@@ -21,7 +21,7 @@ RSpec.describe LocationFeature, type: :model do
     end
   end
 
-  context "#methods" do
+  context '#methods' do
     subject { build(:location_feature) }
 
     before do
@@ -34,7 +34,7 @@ RSpec.describe LocationFeature, type: :model do
     end
   end
 
-  context "#create" do
+  context '#create' do
     subject { build(:location_feature) }
 
     context 'should save location_feature' do
