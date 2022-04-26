@@ -10,12 +10,6 @@ class LocationFeature < ApplicationRecord
   #callbacks
   after_validation :reverse_geocode,
                    if: -> { latitude_changed? || longitude_changed? }
-  after_validation :check_which_nearest_survivor,
-                   if: -> { latitude_changed? || longitude_changed? }
-
-  def check_which_nearest_survivor
-    Automation::NearestSurvivorUpdater.call(id)
-  end
 
   # validations
   validates :latitude, :longitude, presence: true
@@ -27,7 +21,9 @@ class LocationFeature < ApplicationRecord
   # TODO: create helper check in controller for param attribute type
 
   # scopes
-  scope :by_nearby, -> (l) { near(l.location, 2, units: :km).where.not(id: l.id) }
+  scope :by_nearby, -> (current) do
+    near(current.location, 2, units: :km).where.not(id: current.id)
+  end
 
   # custom validations
   def nearest_survivor_exists?
