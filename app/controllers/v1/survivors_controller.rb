@@ -37,7 +37,7 @@ class V1::SurvivorsController < V1::ApiController
     params
       .require(:data)
       .require(:attributes)
-      .permit(:id, :name, :gender, location_feature_attributes: [:latitude, :longitude])
+      .permit(:name, :gender, location_feature_attributes: [:latitude, :longitude])
   end
 
   def set_survivor

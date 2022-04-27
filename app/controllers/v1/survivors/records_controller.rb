@@ -10,9 +10,7 @@ class V1::Survivors::RecordsController < V1::ApiController
 
     @record = Actions::RecordSaver.call(record_params.to_h)
 
-    if @record.present?
-      render json: @record, status: :created, location: survivor_records_path(@record)
-    end
+    render json: @record, status: :created, location: survivor_records_path(@record)
   end
 
   private

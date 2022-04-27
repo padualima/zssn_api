@@ -10,9 +10,12 @@ module Actions
     def call
       @logger.info("[NearestSurvivorUpdater] initial resource_id=#{@location.id}")
 
-      nearby = LocationFeature.by_nearby(@location).first
+      nearby = LocationFeature.by_nearby(@location)&.first
 
-      return nil if nearby.nil?
+      if nearby.nil?
+        @location.survivor.errors.add(:base, "NotSurvivorAround")
+        return nil
+      end
 
       @location.assign_attributes(nearest_survivor_id: nearby&.survivor_id)
       @location.save! if @location.changed?
