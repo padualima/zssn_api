@@ -1,4 +1,4 @@
-module Automation
+module Actions
   class NearestSurvivorUpdater < ApplicationService
     def initialize(location)
       raise TypeError, 'Expected `LocationFeature`' unless location.is_a? LocationFeature

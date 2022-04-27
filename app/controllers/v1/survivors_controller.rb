@@ -6,12 +6,12 @@ class V1::SurvivorsController < V1::ApiController
   end
 
   def create
-    survivor = Survivor.new(survivor_params)
+    @survivor = Survivor.new(survivor_params)
 
-    if survivor.save
-      render json: survivor, status: :ok
+    if @survivor.save
+      render json: @survivor, status: :ok, location: @survivor
     else
-      render_save_error!(survivor, :unprocessable_entity)
+      render_save_error!(@survivor, :unprocessable_entity)
     end
   end
 
@@ -24,7 +24,7 @@ class V1::SurvivorsController < V1::ApiController
   end
 
   def nearest
-    if Automation::NearestSurvivorUpdater.call(@survivor.location_feature)
+    if Actions::NearestSurvivorUpdater.call(@survivor.location_feature)
       render json: @survivor, serializer: NearestSurvivorSerializer
     else
       render_save_error!(@survivor, :unprocessable_entity)
@@ -37,7 +37,7 @@ class V1::SurvivorsController < V1::ApiController
     params
       .require(:data)
       .require(:attributes)
-      .permit(:name, :gender, location_feature_attributes: [:latitude, :longitude])
+      .permit(:id, :name, :gender, location_feature_attributes: [:latitude, :longitude])
   end
 
   def set_survivor
