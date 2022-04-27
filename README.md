@@ -3,16 +3,16 @@
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 ## About the current test
-Você precisa desenvolver uma API RESTful que armazene sobreviventes de um apocalipse zumbi
-e permita que eles encontrem o sobrevivente mais próximo de sua localização.
-
-- Criar novos sobreviventes - nome, sexo e localização atual (latitude/longitude)
-- Recuperar um sobrevivente - ID de sobrevivente necessário
-- Atualização para sobrevivente
-- Recupere o sobrevivente mais próximo de um sobrevivente -
-  id de sobrevivente necessário, você pode usar apenas latitude ou longitude para calculá-lo. Isto é para ajudar um sobrevivente a identificar quem é mais próximo.
-- Marcar sobrevivente como infectado -
-  Um sobrevivente é marcado como infectado quando pelo menos 3 outros sobreviventes relatam que está infectado.outros sobreviventes relatam que está infectado.
+You need to develop a RESTful API that stores survivors from a zombie apocalypse and allow
+them to find the closest survivor from their location.
+- Create new survivors - name, gender and current location (latitude/ longitude)
+- Retrieve a survivor - survivor id required
+- Update a survivor
+- Retrieve closest survivor from a survivor - survivor id required, you can use
+only latitude or longitude to calculate it. This is to help a survivor to identify who is
+closer.
+- Mark survivor as infected - A survivor is marked infected when at least 3 others
+survivors report that it is infected.
 
 ## Result of Lean Inception
 For the development of the API, I used the Chaos and Order mechanism, where Chaos would be all that came to my mind about the problem and Order would be the [Documentation](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) creation process
