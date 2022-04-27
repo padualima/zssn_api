@@ -146,9 +146,9 @@ RSpec.describe 'V1::Survivors', type: :request do
   end
 
   describe 'GET /nearest' do
-    let(:location) { build(:location_feature, :with_survivor_nearby) }
+    let(:survivor) { create(:survivor, :with_nearest_survivor) }
+    let(:location) { survivor.location_feature }
     let(:nearest_location) { LocationFeature.by_nearby(location).first }
-    let(:survivor) { location.survivor }
 
     before do
       location.save

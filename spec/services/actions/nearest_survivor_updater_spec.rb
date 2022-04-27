@@ -2,7 +2,8 @@ require 'rails_helper'
 require './app/services/actions/nearest_survivor_updater'
 
 RSpec.describe Actions::NearestSurvivorUpdater do
-  let(:location) { build(:location_feature, :with_survivor_nearby) }
+  let(:survivor) { create(:survivor, :with_nearest_survivor) }
+  let(:location) { survivor.location_feature }
 
   subject { Actions::NearestSurvivorUpdater.call(location) }
 
