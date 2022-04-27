@@ -4,4 +4,7 @@ class Record < ApplicationRecord
 
   # enumerate
   enum kind: %i[infected recovered]
+
+  # validations
+  validates :kind, presence: true
 end
