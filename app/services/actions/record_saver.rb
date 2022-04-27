@@ -10,6 +10,8 @@ module Actions
     def call
       return if @record_strategy.nil?
 
+      @logger.info("Start create record for survivor_id=#{@record_data[:survivor_id]}")
+
       @record_strategy.save(@record_data, @logger)
     end
 
