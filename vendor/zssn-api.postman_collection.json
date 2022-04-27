@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "c8012a42-f21a-4a82-ae67-7298361a524d",
+		"name": "zssn-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reports",
+			"item": [
+				{
+					"name": "Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.zssn.v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/reports/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"reports",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "survivors",
+			"item": [
+				{
+					"name": "records",
+					"item": [
+						{
+							"name": "Records",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.zssn.v1",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"kind\": \"recovered\",\n      \"survivor_id\": 5,\n      \"by_survivor_id\": 3\n    }\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/survivors/1/records",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"survivors",
+										"1",
+										"records"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.zssn.v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"sasa\",\n      \"gender\": \"masculine\",\n      \"location_feature_attributes\": {\n        \"latitude\": 88.71283391749486,\n        \"longitude\": -155.13364357676332\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/survivors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"survivors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.zssn.v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/survivors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"survivors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.zssn.v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": {\n    \"attributes\": {\n      \"name\": \"Alejandra Treutel III\",\n      \"gender\": \"masculine\",\n      \"location_feature_attributes\": {\n        \"latitude\": -11.726529619813022,\n        \"longitude\": -79.10926800571302\n      }\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/survivors/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"survivors",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nearest",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.zssn.v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/survivors/1/nearest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"survivors",
+								"1",
+								"nearest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
