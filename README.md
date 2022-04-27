@@ -17,7 +17,9 @@ e permita que eles encontrem o sobrevivente mais próximo de sua localização.
 ## Result of Lean Inception
 For the development of the API, I used the Chaos and Order mechanism, where Chaos would be all that came to my mind about the problem and Order would be the [Documentation](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) creation process
 
-[Click here](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) to get the collection of requests made in Postman, download and import!
+[Click here](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/zssn-api.postman_collection.json) to get the collection of requests made in Postman, download and import!
+
+[Use this](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/suport_location.rb) to help you get nearest locations!
 
 ## Install
 ### Docker
