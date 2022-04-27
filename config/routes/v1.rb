@@ -8,4 +8,8 @@ scope module: :v1, defaults: { format: :json }, constraints: ApiConstraints.new(
       resources :records, only: :create
     end
   end
+
+  resources :reports, only: [] do
+    get :stats, on: :collection
+  end
 end

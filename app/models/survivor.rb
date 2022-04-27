@@ -22,6 +22,11 @@ class Survivor < ApplicationRecord
     errors.add(:location, "can't be blank") unless location_feature.present?
   end
 
+  # scopes
+  scope :refugees, -> { where(status: 'refugee') }
+  scope :infecteds, -> { where(status: 'infected') }
+  scope :recovereds, -> { where(status: 'recovered') }
+
   # The State Machine
   include AASM
 

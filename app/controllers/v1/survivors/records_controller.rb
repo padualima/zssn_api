@@ -2,8 +2,8 @@ class V1::Survivors::RecordsController < V1::ApiController
   # POST /records
   def create
     #TODO: change for service
-    @survivor = Survivor.find(record_params[:survivor_id])
-    @by_survivor = Survivor.find(record_params[:by_survivor_id])
+    # @survivor = Survivor.find(params[:survivor_id])
+    # @by_survivor = Survivor.find(record_params[:by_survivor_id])
     @record = Record.new(record_params)
 
     # TODO: change for strategy service

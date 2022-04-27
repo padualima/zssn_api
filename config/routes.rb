@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   draw :v1
+
+  root 'v1/reports#stats'
 end
