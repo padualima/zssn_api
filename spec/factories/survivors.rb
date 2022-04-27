@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :survivor do
     name { Faker::Name.name }
     gender { Survivor.genders.values.sample }
-    status { Survivor.statuses.values.sample }
+    status { Survivor.statuses.keys[0] }
 
     after(:build) do |survivor, _|
       build(:location_feature, survivor: survivor)
@@ -15,6 +15,7 @@ FactoryBot.define do
             obj.location_feature.latitude + rand(0.0..0.0009).round(8)
           near.location_feature.longitude =
             obj.location_feature.longitude + rand(0.0..0.0009).round(8)
+          near.status = obj.status
           near.nearest_survivor = obj
           near.save
         end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'V1::Survivors::Records', type: :request do
-  let(:reported_survivor) { create(:survivor) }
-  let(:by_survivor) { create(:survivor) }
+  let(:reported_survivor) { create(:survivor, :with_nearest_survivor) }
+  let(:by_survivor) { reported_survivor.nearest_survivor }
   let(:record) { build(:record) }
   let(:payload) { api_payload(record) }
   let(:invalid_attributes) { { data: { attributes: { name: Faker::Name.name } } } }
@@ -16,7 +16,8 @@ RSpec.describe 'V1::Survivors::Records', type: :request do
 
       it "creates a new Record" do
         expect do
-          post survivor_records_path(reported_survivor), params: payload.as_json, headers: api_headers
+          post survivor_records_path(reported_survivor),
+            params: payload.as_json, headers: api_headers
         end.to change(Record, :count).by(1)
       end
 
