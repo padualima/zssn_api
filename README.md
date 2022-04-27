@@ -17,10 +17,6 @@ survivors report that it is infected.
 ## Result of Lean Inception
 For the development of the API, I used the Chaos and Order mechanism, where Chaos would be all that came to my mind about the problem and Order would be the [Documentation](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) creation process
 
-[Click here](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/zssn-api.postman_collection.json) to get the collection of requests made in Postman, download and import!
-
-[Use this](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/suport_location.rb) to help you get nearest locations!
-
 ## Install
 ### Docker
 Make sure you have Docker and Docker-Compose installed on your machine!
@@ -59,6 +55,12 @@ Go up the application:
 rails s
 ```
 
+## Who to use
+After go up, now just access the localhost domain http://localhost:3000 to have access to the API.
+
+[Click here](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/zssn-api.postman_collection.json) to get the collection of requests made in Postman, download and import!
+
+[Use this](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/suport_location.rb) to help you get nearest locations!
 
 ## License
 
