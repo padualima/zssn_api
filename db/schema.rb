@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_25_173844) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_26_212622) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_173844) do
     t.index ["survivor_id"], name: "index_location_features_on_survivor_id"
   end
 
+  create_table "records", force: :cascade do |t|
+    t.bigint "survivor_id", null: false
+    t.bigint "by_survivor_id"
+    t.integer "kind", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["by_survivor_id"], name: "index_records_on_by_survivor_id"
+    t.index ["survivor_id"], name: "index_records_on_survivor_id"
+  end
+
   create_table "survivors", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.integer "gender", null: false
@@ -37,4 +47,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_25_173844) do
   end
 
   add_foreign_key "location_features", "survivors"
+  add_foreign_key "records", "survivors"
 end

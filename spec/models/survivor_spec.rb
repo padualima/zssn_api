@@ -14,7 +14,7 @@ RSpec.describe Survivor, type: :model do
   end
 
   context '#create' do
-    subject { build(:survivor, :with_location) }
+    subject { build(:survivor) }
 
     context 'should save survivor' do
       it 'when required attributes is present' do

@@ -2,6 +2,7 @@ class Survivor < ApplicationRecord
   # relationships
   has_one :location_feature, dependent: :destroy
   has_one :nearest_survivor, through: :location_feature
+  has_many :records, dependent: :destroy
 
   accepts_nested_attributes_for :location_feature, update_only: true
 
