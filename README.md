@@ -20,32 +20,55 @@ For the development of the API, I used the Chaos and Order mechanism, where Chao
 ## Install
 ### Docker
 Make sure you have Docker and Docker-Compose installed on your machine!
-Inside the project directory, copy `.env` with:
-```sh
+
+Inside the project directory:
+
+Run to copy `.env` with:
+```
 cp .env.docker.sample .env
 ```
+
 Run to build the docker image:
-```sh
-docker-compose build
+```
+docker-compose up --build
+```
+
+Install the gems
+```
+docker-compose run --rm app bundle install
 ```
 
 Creating and migrating database:
-```sh
+```
 docker-compose run --rm app bundle exec rails db:create db:migrate
 ```
+
 Go up the application:
 ```
 docker-compose up -d
 ```
+
+
+Run tests Rspec with:
+```
+docker-compose run --rm app bundle exec rspec spec
+```
+
 ### Ruby on Rails
 Given that you have the Ruby(3.0.2), Rails(7.0.2.3) and DB PostgreSQL versions installed:
-Copy `.env` and configure your PostgreSQL credentials!
-```sh
+Inside the project directory:
+Run to copy `.env`, and configure your PostgreSQL credentials!
+```
 cp .env.sample .env
 ```
 
+Install the gems
+```
+bundle install
+```
+
 Creating and migrating database:
-```sh
+```
 rails db:create
 rails db:migrate
 ```
@@ -55,8 +78,14 @@ Go up the application:
 rails s
 ```
 
+
+Run tests Rspec with:
+```
+bundle exec rspec spec
+```
+
 ## Who to use
-After go up, now just access the localhost domain http://localhost:3000 to have access to the API.
+After go up API, now with the domain localhost http://localhost:3000 you will have access to the root_path API.
 
 [Click here](https://github.com/padualima/zssn-maxihost-api/blob/main/vendor/zssn-api.postman_collection.json) to get the collection of requests made in Postman, download and import!
 
