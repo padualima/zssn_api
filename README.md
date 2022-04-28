@@ -18,7 +18,7 @@ survivors report that it is infected.
 For the development of the API, I used the Chaos and Order mechanism, where Chaos would be all that came to my mind about the problem and Order would be the [Documentation](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) creation process
 
 ## Install
-### Docker
+### Docker (recommended)
 Make sure you have Docker and Docker-Compose installed on your machine!
 
 Inside the project directory:
@@ -33,7 +33,7 @@ Run to build the docker image:
 docker-compose up --build
 ```
 
-Install the gems
+Use `ctrl + c` for stop container and run for install the gems:
 ```
 docker-compose run --rm app bundle install
 ```
@@ -43,13 +43,13 @@ Creating and migrating database:
 docker-compose run --rm app bundle exec rails db:create db:migrate
 ```
 
-Go up the application:
+Go up the application, run container docker in detached mode `-d`:
 ```
 docker-compose up -d
 ```
 
 
-Run tests Rspec with:
+*Run tests Rspec with:
 ```
 docker-compose run --rm app bundle exec rspec spec
 ```
@@ -79,7 +79,7 @@ rails s
 ```
 
 
-Run tests Rspec with:
+*Run tests Rspec with:
 ```
 bundle exec rspec spec
 ```
