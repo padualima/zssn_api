@@ -3,21 +3,21 @@ module Actions
     class Recover < Base
       def save(record_data, log)
         reported = Survivor.find(record_data[:survivor_id])
-        by_report = nil
+        informed_by = nil
 
         unless record_data[:by_survivor_id].nil?
-          by_report = Survivor.find(record_data[:by_survivor_id])
+          informed_by = Survivor.find(record_data[:by_survivor_id])
         end
 
-        full_requirements?(log, reported, by_report)
+        full_requirements?(log, reported, informed_by)
 
         record = Record.new(record_data)
 
         if record.save!
           if reported.redeem!
-            by_report.redeem! if by_report.present?
+            informed_by.redeem! if informed_by.present?
 
-            log.warn("Survivor_ids=#{[reported.id, by_report&.id]} Recovereds")
+            log.warn("Survivor_ids=#{[reported.id, informed_by&.id]} Recovereds")
           end
         end
 
@@ -26,12 +26,12 @@ module Actions
 
       protected
 
-      def full_requirements?(log, reported, by_report=nil)
-        is_refugees?(log, reported, by_report)
+      def full_requirements?(log, reported, informed_by=nil)
+        is_refugees?(log, reported, informed_by)
 
-        if by_report.present?
-          survivors_is_nearby?(log, reported, by_report)
-          already_reported?(log, reported, by_report)
+        if informed_by.present?
+          survivors_is_nearby?(log, reported, informed_by)
+          already_reported?(log, reported, informed_by)
         end
       end
     end
