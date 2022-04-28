@@ -19,4 +19,5 @@ COPY Gemfile ./
 # Set path Gemfile
 ENV BUNDLE_PATH /gems
 # Copy code into container
+RUN bundle install
 COPY . .

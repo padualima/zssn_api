@@ -10,8 +10,7 @@ class LocationFeature < ApplicationRecord
   #callbacks
   after_validation :reverse_geocode,
                    if: -> { latitude_changed? || longitude_changed? }
-  after_validation :check_which_nearest_survivor,
-                   if: -> { latitude_changed? || longitude_changed? }
+  after_validation :check_which_nearest_survivor, if: -> { latitude_changed? || longitude_changed? }
 
   def check_which_nearest_survivor
     Automation::NearestSurvivorUpdaterJob.perform_async(id) if id

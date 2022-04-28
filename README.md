@@ -18,15 +18,25 @@ survivors report that it is infected.
 For the development of the API, I used the Chaos and Order mechanism, where Chaos would be all that came to my mind about the problem and Order would be the [Documentation](https://drive.google.com/file/d/1x5L1VwF8CyDEJHvxHmZ9LrDpUVBIKt1g/view?usp=sharing) creation process
 
 ## Install
-### Docker (recommended)
-Make sure you have Docker and Docker-Compose installed on your machine!
 
 Inside the project directory:
 
-Run to copy `.env` with:
+Run the command below to copy the `.env`.
+
+*Only for installation with Ruby on rails: You will have to change PostgreSQL credentials in `.env` with based on your local credentials!
+
 ```
-cp .env.docker.sample .env
+cp .env.sample .env
 ```
+
+### Docker (recommended)
+Make sure you have Docker and Docker-Compose installed on your machine!
+
+*But, if you haven't installed it yet, I recommend the links below for installation using Ubuntu 20.04:
+
+Install Docker: [Click here!](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-pt)
+
+Install Docker-compose: [Click here!](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04-pt)
 
 Run to build the docker image:
 ```
@@ -43,9 +53,9 @@ Creating and migrating database:
 docker-compose run --rm app bundle exec rails db:create db:migrate
 ```
 
-Go up the application, run container docker in detached mode `-d`:
+Go up the application, run container docker:
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 
@@ -56,11 +66,6 @@ docker-compose run --rm app bundle exec rspec spec
 
 ### Ruby on Rails
 Given that you have the Ruby(3.0.2), Rails(7.0.2.3) and DB PostgreSQL versions installed:
-Inside the project directory:
-Run to copy `.env`, and configure your PostgreSQL credentials!
-```
-cp .env.sample .env
-```
 
 Install the gems
 ```
