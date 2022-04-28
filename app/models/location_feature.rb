@@ -14,7 +14,7 @@ class LocationFeature < ApplicationRecord
                    if: -> { latitude_changed? || longitude_changed? }
 
   def check_which_nearest_survivor
-    Automation::NearestSurvivorUpdaterJob.perform_in(1.seconds.from_now, id)
+    Automation::NearestSurvivorUpdaterJob.perform_async(id)
   end
 
   # validations
