@@ -2,12 +2,12 @@ module Automation
   class NearestSurvivorUpdaterJob
     include Sidekiq::Job
 
-    def perform(survivor_id)
+    def perform(location_feature_id)
       @logger = Rails.logger
-      survivor = Survivor.find(survivor_id)
+      location_feature = LocationFeature.find(location_feature_id)
 
-      @logger.warn("Updating the nearest survivor to survivor_id#{survivor.id}")
-      Actions::NearestSurvivorUpdater.call(survivor.location_feature)
+      @logger.warn("Updating the nearest survivor to location_id#{location_feature.id}")
+      Actions::NearestSurvivorUpdater.call(location_feature)
     end
   end
 end
